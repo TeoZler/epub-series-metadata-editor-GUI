@@ -37,11 +37,11 @@ jobs:
 
       - name: Package for Windows
         if: matrix.platform == 'win'
-        run: npx electron-builder --win --x64 --arm64
+        run: npx electron-builder --win --x64 --arm64 --publish=never
 
       - name: Package for macOS
         if: matrix.platform == 'mac'
-        run: npx electron-builder --mac --x64 --arm64
+        run: npx electron-builder --mac --x64 --arm64 --publish=never
 
       - name: Setup QEMU for Linux arm64
         if: matrix.platform == 'linux'
@@ -51,7 +51,7 @@ jobs:
 
       - name: Package for Linux
         if: matrix.platform == 'linux'
-        run: npx electron-builder --linux --x64 --arm64
+        run: npx electron-builder --linux --x64 --arm64 --publish=never
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
