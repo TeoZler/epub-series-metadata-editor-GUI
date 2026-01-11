@@ -89,9 +89,6 @@ jobs:
             - **Windows**: `.exe` installer or portable version
             - **macOS**: `.dmg` disk image (supports Intel and Apple Silicon)
             - **Linux**: `.AppImage` or `.deb` package
-            
-            ### Changelog
-            See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.
           draft: false
           prerelease: false
           files: artifacts/*
