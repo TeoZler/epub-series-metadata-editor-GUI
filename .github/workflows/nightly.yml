@@ -33,6 +33,13 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Set nightly version
+        run: |
+          NIGHTLY_VERSION="0.0.0-nightly.$(date +'%Y%m%d')"
+          echo "Setting version to $NIGHTLY_VERSION"
+          npm version $NIGHTLY_VERSION --no-git-tag-version --allow-same-version
+        shell: bash
+
       - name: Install dependencies
         run: npm ci
 
@@ -62,11 +69,12 @@ jobs:
         with:
           name: ${{ matrix.platform }}-build
           path: |
-            dist/*.exe
-            dist/*.dmg
-            dist/*.zip
-            dist/*.AppImage
-            dist/*.deb
+            dist/*-x64.exe
+            dist/*-arm64.exe
+            dist/*-x64.dmg
+            dist/*-arm64.dmg
+            dist/*-x64.AppImage
+            dist/*-arm64.AppImage
           if-no-files-found: ignore
 
   release:

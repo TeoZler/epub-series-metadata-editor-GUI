@@ -58,11 +58,12 @@ jobs:
         with:
           name: ${{ matrix.platform }}-build
           path: |
-            dist/*.exe
-            dist/*.dmg
-            dist/*.zip
-            dist/*.AppImage
-            dist/*.deb
+            dist/*-x64.exe
+            dist/*-arm64.exe
+            dist/*-x64.dmg
+            dist/*-arm64.dmg
+            dist/*-x64.AppImage
+            dist/*-arm64.AppImage
           if-no-files-found: ignore
 
   release:
