@@ -3,7 +3,7 @@ name: Nightly Build
 on:
   push:
     branches:
-      - main
+      - master
     paths-ignore:
       - '**.md'
       - '.gitignore'
