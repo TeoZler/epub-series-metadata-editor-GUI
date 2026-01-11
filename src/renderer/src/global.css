@@ -1,8 +1,135 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;
   background: transparent;
+}
+
+/* Tree line variables */
+:root {
+  --tree-line-color: rgba(0, 0, 0, 0.2);
+  --tree-indent-width: 24px;
+  --depth-bg-step: 0.03;
+}
+
+[data-theme='dark'] {
+  --tree-line-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Tree line container in fileName cell */
+.tree-lines-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: calc(var(--depth, 0) * var(--tree-indent-width));
+  overflow: visible;
+}
+
+/* Vertical tree lines - extend beyond cell with negative margins */
+.tree-vertical-line {
+  position: absolute;
+  left: calc(var(--line-index) * var(--tree-indent-width) + 11px);
+  top: -8px;
+  /* Extend above cell */
+  bottom: -8px;
+  /* Extend below cell */
+  width: 1px;
+  background-color: var(--tree-line-color);
+  pointer-events: none;
+}
+
+/* Horizontal branch line */
+.tree-branch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.tree-branch::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--tree-indent-width) + 11px);
+  top: 50%;
+  width: calc(var(--tree-indent-width) - 14px);
+  height: 1px;
+  background-color: var(--tree-line-color);
+}
+
+/* For last child - draw vertical line only to midpoint */
+.tree-branch.is-last .tree-vertical-line-self {
+  bottom: 50% !important;
+}
+
+/* Ensure table cells allow overflow */
+.ant-table-cell {
+  overflow: visible !important;
+}
+
+/* Make table row position relative for proper line stacking */
+.ant-table-row {
+  position: relative;
+}
+
+/* Drag handle cell - use position to center content */
+.drag-handle-cell {
+  position: relative;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.drag-handle-cell>div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Depth-based row backgrounds */
+.tree-row-depth-0 {
+  background-color: transparent;
+}
+
+.tree-row-depth-1 {
+  background-color: rgba(24, 144, 255, 0.03);
+}
+
+.tree-row-depth-2 {
+  background-color: rgba(24, 144, 255, 0.06);
+}
+
+.tree-row-depth-3 {
+  background-color: rgba(24, 144, 255, 0.09);
+}
+
+.tree-row-depth-4 {
+  background-color: rgba(24, 144, 255, 0.12);
+}
+
+.tree-row-depth-5 {
+  background-color: rgba(24, 144, 255, 0.15);
+}
+
+[data-theme='dark'] .tree-row-depth-1 {
+  background-color: rgba(24, 144, 255, 0.05);
+}
+
+[data-theme='dark'] .tree-row-depth-2 {
+  background-color: rgba(24, 144, 255, 0.08);
+}
+
+[data-theme='dark'] .tree-row-depth-3 {
+  background-color: rgba(24, 144, 255, 0.11);
+}
+
+[data-theme='dark'] .tree-row-depth-4 {
+  background-color: rgba(24, 144, 255, 0.14);
+}
+
+[data-theme='dark'] .tree-row-depth-5 {
+  background-color: rgba(24, 144, 255, 0.17);
 }
 
 /* Custom Scrollbar */

@@ -22,28 +22,33 @@
       "index": "序号"
     },
     "theme": {
-        "light": "亮色",
-        "dark": "暗色",
-        "toggle": "切换主题"
+      "light": "亮色",
+      "dark": "暗色",
+      "toggle": "切换主题"
     },
     "language": "语言",
     "contextMenu": {
-        "setSeries": "设置统一系列名",
-        "autoIndex": "自动编号 (1, 2, 3...)",
-        "smartIndex": "智能续编 (X, X+1...)",
-        "smartIndexTooltip": "保持第一项编号不变，后续项从下一整数开始递增"
+      "setSeries": "设置统一系列名",
+      "autoIndex": "自动编号 (1, 2, 3...)",
+      "smartIndex": "智能续编 (X, X+1...)",
+      "smartIndexTooltip": "保持第一项编号不变，后续项从下一整数开始递增"
     },
     "batch": {
-        "selected": "已选 {{count}} 项",
-        "setSeries": "统一系列",
-        "autoIndex": "自动编号",
-        "smartIndex": "智能续编"
+      "selected": "已选 {{count}} 项",
+      "setSeries": "统一系列",
+      "autoIndex": "自动编号",
+      "smartIndex": "智能续编",
+      "undo": "撤销"
     },
+    "noHistory": "没有可撤销的操作",
+    "undone": "已撤销",
+    "dragSameFolderOnly": "只能在同一文件夹内拖动排序",
     "modal": {
-        "enterSeries": "请输入系列名",
-        "useParentDir": "使用父文件夹名",
-        "ok": "确定",
-        "cancel": "取消"
+      "enterSeries": "请输入系列名",
+      "useParentDir": "使用父文件夹名",
+      "useMajority": "从已有项识别系列名",
+      "ok": "确定",
+      "cancel": "取消"
     }
   }
 }
