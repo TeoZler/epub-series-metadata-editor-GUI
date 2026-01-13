@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, createContext, useContext } from 'react'
-import { Button, Table, message, Checkbox, ConfigProvider, theme, Space, Select, Input, Modal, Dropdown, MenuProps, Card } from 'antd'
+import { Button, Table, message, Checkbox, ConfigProvider, theme, Space, Select, Input, Modal, Dropdown, MenuProps, Card, Tooltip } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { useTranslation } from 'react-i18next'
 import { Moon, Sun, Save, ListOrdered, Edit, ArrowDown01, X, FolderInput, GripVertical, Folder, FolderOpen, Undo2, Wand2 } from 'lucide-react'
@@ -17,6 +17,7 @@ interface EpubMetadata {
     author: string
     series: string
     seriesIndex: string
+    seriesSource: 'epub3' | 'calibre' | null
     cover?: string
 }
 
@@ -137,6 +138,8 @@ function App(): JSX.Element {
     const [modifiedFiles, setModifiedFiles] = useState<Set<string>>(new Set())
     const [saving, setSaving] = useState(false)
     const [backup, setBackup] = useState(true)
+    const [writeEpub3, setWriteEpub3] = useState(true)  // EPUB3 标准格式
+    const [writeCalibre, setWriteCalibre] = useState(true)  // Calibre 兼容格式
 
     // Selection state
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
@@ -269,13 +272,20 @@ function App(): JSX.Element {
                     key: 'series',
                     width: getWidth('series', 200),
                     render: (text, record) => !record.isFolder && (
-                        <Input
-                            value={text}
-                            onChange={e => handleDataChange(record.filePath!, 'series', e.target.value)}
-                            onClick={(e) => e.stopPropagation()}
-                            bordered={false}
-                            style={{ padding: '0 4px', background: modifiedFiles.has(record.filePath!) ? 'rgba(24, 144, 255, 0.1)' : undefined }}
-                        />
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                            <Input
+                                value={text}
+                                onChange={e => handleDataChange(record.filePath!, 'series', e.target.value)}
+                                onClick={(e) => e.stopPropagation()}
+                                bordered={false}
+                                style={{ padding: '0 4px', background: modifiedFiles.has(record.filePath!) ? 'rgba(24, 144, 255, 0.1)' : undefined, flex: 1 }}
+                            />
+                            {record.seriesSource === 'calibre' && record.series && (
+                                <Tooltip title={t('app.sourceCalibre')}>
+                                    <span style={{ color: '#faad14', fontSize: 12, cursor: 'help' }}>⚠️</span>
+                                </Tooltip>
+                            )}
+                        </div>
                     )
                 },
                 {
@@ -563,7 +573,7 @@ function App(): JSX.Element {
             const filesToSave = flatData.filter(item => modifiedFiles.has(item.filePath))
 
             for (const file of filesToSave) {
-                const res = await window.api.saveEpub(file.filePath, file.series, file.seriesIndex, backup)
+                const res = await window.api.saveEpub(file.filePath, file.series, file.seriesIndex, backup, writeEpub3, writeCalibre)
                 if (res.success) {
                     successCount++
                     setOriginalData(prev => {
@@ -979,6 +989,12 @@ function App(): JSX.Element {
 
                         <Checkbox checked={backup} onChange={e => setBackup(e.target.checked)}>
                             {t('app.backup')}
+                        </Checkbox>
+                        <Checkbox checked={writeEpub3} onChange={e => setWriteEpub3(e.target.checked)}>
+                            {t('app.formatEpub3')}
+                        </Checkbox>
+                        <Checkbox checked={writeCalibre} onChange={e => setWriteCalibre(e.target.checked)}>
+                            {t('app.formatCalibre')}
                         </Checkbox>
                     </div>
 

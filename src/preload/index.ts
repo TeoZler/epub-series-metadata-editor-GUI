@@ -5,7 +5,7 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   openDirectory: () => ipcRenderer.invoke('dialog:openDirectory'),
   scanEpubs: (dir: string, recursive: boolean) => ipcRenderer.invoke('epub:scan', dir, recursive),
-  saveEpub: (filePath: string, series: string, index: string, backup: boolean) => ipcRenderer.invoke('epub:write', filePath, series, index, backup)
+  saveEpub: (filePath: string, series: string, index: string, backup: boolean, writeEpub3: boolean, writeCalibre: boolean) => ipcRenderer.invoke('epub:write', filePath, series, index, backup, writeEpub3, writeCalibre)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

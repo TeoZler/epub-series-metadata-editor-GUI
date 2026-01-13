@@ -7,6 +7,7 @@ interface EpubMetadata {
   author: string
   series: string
   seriesIndex: string
+  seriesSource: 'epub3' | 'calibre' | null
   cover?: string
 }
 
@@ -16,7 +17,7 @@ declare global {
     api: {
       openDirectory: () => Promise<string | null>
       scanEpubs: (dir: string, recursive: boolean) => Promise<EpubMetadata[]>
-      saveEpub: (filePath: string, series: string, index: string, backup: boolean) => Promise<{ success: boolean; error?: string }>
+      saveEpub: (filePath: string, series: string, index: string, backup: boolean, writeEpub3: boolean, writeCalibre: boolean) => Promise<{ success: boolean; error?: string }>
     }
   }
 }

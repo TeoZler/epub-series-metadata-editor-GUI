@@ -14,6 +14,9 @@
     "saveFailed": "Save failed",
     "noChanges": "No changes to save",
     "backup": "Create .bak backup",
+    "formatEpub3": "EPUB3 Standard",
+    "formatCalibre": "Calibre Compatible",
+    "sourceCalibre": "From Calibre format",
     "table": {
       "filename": "Filename",
       "folder": "Folder",

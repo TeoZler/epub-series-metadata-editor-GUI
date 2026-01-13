@@ -61,22 +61,22 @@ app.whenReady().then(() => {
 
   ipcMain.handle('epub:scan', async (_event, dirPath, recursive) => {
     try {
-        const files = EpubReader.getAllEpubs(dirPath, recursive)
-        const results = files.map(f => EpubReader.readMetadata(f))
-        return results
+      const files = EpubReader.getAllEpubs(dirPath, recursive)
+      const results = files.map(f => EpubReader.readMetadata(f))
+      return results
     } catch (error) {
-        console.error("Scan error:", error)
-        return []
+      console.error("Scan error:", error)
+      return []
     }
   })
 
-  ipcMain.handle('epub:write', async (_event, filePath, series, index, backup) => {
-      try {
-          await EpubWriter.writeSeries(filePath, series, index, backup)
-          return { success: true }
-      } catch (e: any) {
-          return { success: false, error: e.message }
-      }
+  ipcMain.handle('epub:write', async (_event, filePath, series, index, backup, writeEpub3, writeCalibre) => {
+    try {
+      await EpubWriter.writeSeries(filePath, series, index, backup, writeEpub3, writeCalibre)
+      return { success: true }
+    } catch (e: any) {
+      return { success: false, error: e.message }
+    }
   })
 
   createWindow()

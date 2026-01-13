@@ -14,6 +14,9 @@
     "saveFailed": "保存失败",
     "noChanges": "没有需要保存的更改",
     "backup": "生成 .bak 备份",
+    "formatEpub3": "EPUB3 标准",
+    "formatCalibre": "Calibre 兼容",
+    "sourceCalibre": "来自 Calibre 格式",
     "table": {
       "filename": "文件名",
       "folder": "目录",
